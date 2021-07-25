@@ -10,11 +10,30 @@
   </head>
   <body class="center-content">
     <h1 class="center-self title">BRemover</h1>
-    <main id="content"></main>
-    <form class="form" id="newRulesForm" style="margin-top: 10px">
-      <label for="pagename">Domain</label>
-      <input type="text" id="pagename" />
-      <button type="submit">Save</button>
-    </form>
+    <main id="main">
+      <section id="content"></section>
+      <form class="form" id="newDomainsForm" style="margin-top: 10px">
+        <label for="pagename">Domain</label>
+        <input required type="text" id="pagename" />
+        <button type="submit">Save</button>
+      </form>
+    </main>
+    <section id="edit" class="hidden">
+      <header id="editHeader" class="page"></header>
+      <section id="currentRules"></section>
+      <form class="form" id="newRulesForm" style="margin-top: 10px">
+        <label>Kind</label>
+        <select>
+          <option value="1">Remove classes</option>
+          <option value="2">Add classes</option>
+          <option value="3">Add styles</option>
+          <option value="4">Remove nodes</option>
+          <option value="5">Add script</option>
+          <option value="6">Add script link</option>
+          <option value="7">Add stylehseet</option>
+        </select>
+        <button type="submit">Add</button>
+      </form>
+    </section>
   </body>
 </html>

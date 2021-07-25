@@ -26,6 +26,10 @@ button {
   margin-left: auto;
 }
 
+.hidden {
+  display: none;
+}
+
 .title {
   margin-top: 0;
 }

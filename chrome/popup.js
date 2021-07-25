@@ -17,6 +17,15 @@ const removeItems = async (evt) => {
   updateViewElements();
 };
 
+const openEditView = async (evt) => {
+  const domain = evt.target.dataset.key;
+  const domainData = (await getElements())[domain];
+
+  document.getElementById("editHeader").innerHTML = domain;
+  document.getElementById("main").classList.add("hidden");
+  document.getElementById("edit").classList.remove("hidden");
+};
+
 const updateViewElements = async () => {
   const elements = await getElements();
   const container = document.getElementById("content");
@@ -24,7 +33,13 @@ const updateViewElements = async () => {
   container.innerHTML = Object.entries(elements)
     .map(
       ([pagename]) =>
-        `<div class='page'>${pagename}<div class='align-right'><button>🖉</button><button>🗑</button></div></div>`
+        `<div class='page'>
+        ${pagename}
+          <div class='align-right'>
+            <button data-edit data-key='${pagename}'>🖉</button>
+            <button data-remove data-key='${pagename}'>🗑</button>
+          </div>
+        </div>`
     )
     .join("");
 
@@ -32,11 +47,16 @@ const updateViewElements = async () => {
     elem.removeEventListener("click", removeItems);
     elem.addEventListener("click", removeItems);
   });
+
+  document.querySelectorAll("button[data-edit]").forEach((elem) => {
+    elem.removeEventListener("click", openEditView);
+    elem.addEventListener("click", openEditView);
+  });
 };
 
 updateViewElements();
 
-document.getElementById("newRulesForm").addEventListener("submit", async (evt) => {
+document.getElementById("newDomainsForm").addEventListener("submit", async (evt) => {
   evt.preventDefault();
   const form = evt.target;
 
