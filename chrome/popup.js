@@ -21,12 +21,10 @@ const updateViewElements = async () => {
   const elements = await getElements();
   const container = document.getElementById("content");
 
-  console.log(elements);
-
   container.innerHTML = Object.entries(elements)
     .map(
-      ([pagename, rules]) =>
-        `<div style='display: flex; align-items: center;'><p style='margin: 5px 0;'>${pagename};${rules}</p><button data-remove data-key='${pagename}' style='margin-left: auto; height: 20px'>x</button></div>`
+      ([pagename]) =>
+        `<div class='page'>${pagename}<div class='align-right'><button>🖉</button><button>🗑</button></div></div>`
     )
     .join("");
 
@@ -43,9 +41,7 @@ document.getElementById("newRulesForm").addEventListener("submit", async (evt) =
   const form = evt.target;
 
   const currentElements = await getElements();
-  const newElements = { ...currentElements, [form.pagename.value]: form.rules.value };
-
-  console.log("elements", newElements);
+  const newElements = { ...currentElements, [form.pagename.value]: [] };
 
   await saveElements(newElements);
   updateViewElements();
