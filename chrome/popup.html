@@ -21,17 +21,33 @@
     <section id="edit" class="hidden">
       <header id="editHeader" class="page"></header>
       <section id="currentRules"></section>
-      <form class="form" id="newRulesForm" style="margin-top: 10px">
-        <label>Kind</label>
-        <select>
-          <option value="1">Remove classes</option>
-          <option value="2">Add classes</option>
-          <option value="3">Add styles</option>
-          <option value="4">Remove nodes</option>
-          <option value="5">Add script</option>
-          <option value="6">Add script link</option>
-          <option value="7">Add stylehseet</option>
-        </select>
+      <form id="newRulesForm" class="newRulesForm" style="margin-top: 10px">
+        <div>
+          <label>Kind</label>
+          <select id="ruleType">
+            <option value="1" data-fields="selector;extraInfo" data-extra="Classes">
+              Remove classes
+            </option>
+            <option value="2" data-fields="selector;extraInfo" data-extra="Classes">
+              Add classes
+            </option>
+            <option value="3" data-fields="selector;extraInfo" data-extra="Styles">
+              Add styles
+            </option>
+            <option value="4" data-fields="selector">Remove nodes</option>
+            <option value="5" data-fields="extraInfo" data-extra="Code">Add script</option>
+            <option value="6" data-fields="extraInfo" data-extra="URL">Add script link</option>
+            <option value="7" data-fields="extraInfo" data-extra="URL">Add stylehseet</option>
+          </select>
+        </div>
+        <div>
+          <label for="selector">Selector</label>
+          <input id="selector" type="text" />
+        </div>
+        <div>
+          <label for="extraInfo">Classes</label>
+          <input id="extraInfo" type="text" />
+        </div>
         <button type="submit">Add</button>
       </form>
     </section>

@@ -66,3 +66,28 @@ document.getElementById("newDomainsForm").addEventListener("submit", async (evt)
   await saveElements(newElements);
   updateViewElements();
 });
+
+document.getElementById("ruleType").addEventListener("change", (evt) => {
+  const select = evt.target;
+  const selectedOption = select.options[select.selectedIndex];
+
+  const toUseText = selectedOption.dataset.extra;
+  const neededFields = selectedOption.dataset.fields.split(";");
+
+  const fields = ["selector", "extraInfo"];
+
+  for (const field of fields) {
+    const elem = document.getElementById(field);
+    const elemLabel = document.querySelector(`label[for='${field}']`);
+
+    if (neededFields.includes(field)) {
+      elem.classList.remove("hidden");
+      elemLabel.classList.remove("hidden");
+    } else {
+      elem.classList.add("hidden");
+      elemLabel.classList.add("hidden");
+    }
+  }
+
+  if (toUseText) document.querySelector("label[for='extraInfo']").innerHTML = toUseText;
+});

@@ -67,3 +67,14 @@ button {
   outline: 0;
   margin-right: 5px;
 }
+
+.newRulesForm {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.newRulesForm div {
+  display: flex;
+  flex-direction: column;
+}
