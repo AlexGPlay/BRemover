@@ -17,13 +17,52 @@ const removeItems = async (evt) => {
   updateViewElements();
 };
 
+const removeRule = async (evt) => {
+  const domain = evt.target.dataset.domain;
+  const rule = evt.target.dataset.id;
+
+  const elements = await getElements();
+  const rules = elements[domain];
+  rules.splice(rule, 1);
+
+  const newElements = { ...elements, [domain]: rules };
+  saveElements(newElements);
+  openEditView({ target: { dataset: { key: domain } } });
+};
+
 const openEditView = async (evt) => {
   const domain = evt.target.dataset.key;
   const domainData = (await getElements())[domain];
 
+  const toShowData = domainData
+    .map(
+      (data, idx) =>
+        `<tr><td>${data.kind}</td><td>${data.selector || ""}</td><td>${
+          data.extraInfo || ""
+        }</td><td><button data-remove-rule data-id='${idx}' data-domain='${domain}'>🗑</button></td></tr>`
+    )
+    .join("");
+
+  document.getElementById("newRulesForm").dataset.domain = domain;
   document.getElementById("editHeader").innerHTML = domain;
   document.getElementById("main").classList.add("hidden");
   document.getElementById("edit").classList.remove("hidden");
+  document.getElementById("currentRules").innerHTML = `
+    <table>
+      <thead>
+        <tr>
+          <td>Kind</td>
+          <td>Selector</td>
+          <td>Extra Info</td>
+        </tr>
+      </thead>
+      <tbody>
+        ${toShowData}
+      </tbody>
+    </table>`;
+
+  document.querySelector("button[data-remove-rule]").removeEventListener("click", removeRule);
+  document.querySelector("button[data-remove-rule]").addEventListener("click", removeRule);
 };
 
 const updateViewElements = async () => {
@@ -90,4 +129,31 @@ document.getElementById("ruleType").addEventListener("change", (evt) => {
   }
 
   if (toUseText) document.querySelector("label[for='extraInfo']").innerHTML = toUseText;
+});
+
+document.getElementById("newRulesForm").addEventListener("submit", async (evt) => {
+  const select = evt.target["ruleType"];
+  const needsSelector = select.options[select.selectedIndex].dataset.fields
+    .split(";")
+    .includes("selector");
+
+  const needsExtra = select.options[select.selectedIndex].dataset.fields
+    .split(";")
+    .includes("extraInfo");
+
+  const data = {
+    kind: evt.target["ruleType"].value,
+    selector: needsSelector ? evt.target["selector"].value : null,
+    extraInfo: needsExtra ? evt.target["extraInfo"].value : null,
+  };
+
+  if (!data.kind || (needsSelector && !data.selector) || (needsExtra && !data.extraInfo)) return;
+
+  const elements = await getElements();
+  const newElements = {
+    ...elements,
+    [evt.target.dataset.domain]: [...elements[evt.target.dataset.domain], data],
+  };
+
+  saveElements(newElements);
 });

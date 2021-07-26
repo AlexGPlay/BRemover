@@ -78,3 +78,9 @@ button {
   display: flex;
   flex-direction: column;
 }
+
+table {
+  margin-top: 10px;
+  border: 1px solid black;
+  width: 100%;
+}
