@@ -61,8 +61,12 @@ const openEditView = async (evt) => {
       </tbody>
     </table>`;
 
-  document.querySelector("button[data-remove-rule]").removeEventListener("click", removeRule);
-  document.querySelector("button[data-remove-rule]").addEventListener("click", removeRule);
+  document
+    .querySelectorAll("button[data-remove-rule]")
+    .forEach((button) => button.removeEventListener("click", removeRule));
+  document
+    .querySelectorAll("button[data-remove-rule]")
+    .forEach((button) => button.addEventListener("click", removeRule));
 };
 
 const updateViewElements = async () => {
