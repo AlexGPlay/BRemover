@@ -17,9 +17,7 @@ chrome.webNavigation.onCompleted.addListener(async () => {
   if (!rules) return;
 
   for (const rule of rules) {
-    if (rule.kind === "1") applyKind1(tab, rule);
-    else if (rule.kind === "2") applyKind2(tab, rule);
-    else if (rule.kind === "3") applyKind3(tab, rule);
+    applyFunctions[`applyKind${rule.kind}`](tab, rule);
   }
 });
 
@@ -49,4 +47,17 @@ const applyKind3 = (tab, { selector, extraInfo }) => {
   chrome.tabs.executeScript(tab.id, {
     code: `document.querySelectorAll("${selector}").forEach(node => node.style.cssText = "${extraInfo}")`,
   });
+};
+
+const applyKind4 = (tab, { selector }) => {
+  chrome.tabs.executeScript(tab.id, {
+    code: `document.querySelectorAll("${selector}").forEach(node => node.parentNode.removeChild(node))`,
+  });
+};
+
+const applyFunctions = {
+  applyKind1,
+  applyKind2,
+  applyKind3,
+  applyKind4,
 };
