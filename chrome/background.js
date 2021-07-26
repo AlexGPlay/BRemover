@@ -79,6 +79,17 @@ const applyKind6 = (tab, { extraInfo }) => {
   });
 };
 
+const applyKind7 = (tab, { extraInfo }) => {
+  chrome.tabs.executeScript(tab.id, {
+    code: `
+      const bStylesheetNode = document.createElement("link");
+      bStylesheetNode.rel = "stylesheet";
+      bStylesheetNode.href = "${extraInfo}";
+      document.querySelector("head").appendChild(bStylesheetNode);
+    `,
+  });
+};
+
 const applyFunctions = {
   applyKind1,
   applyKind2,
@@ -86,4 +97,5 @@ const applyFunctions = {
   applyKind4,
   applyKind5,
   applyKind6,
+  applyKind7,
 };
