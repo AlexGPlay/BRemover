@@ -57,9 +57,6 @@ const applyKind4 = (tab, { selector }) => {
 
 const applyKind5 = (tab, { extraInfo }) => {
   const script = `(function (){ ${extraInfo} })();`;
-  const node = document.createElement("script");
-  const data = document.createTextNode(script);
-  node.appendChild(data);
 
   chrome.tabs.executeScript(tab.id, {
     code: `
@@ -71,10 +68,22 @@ const applyKind5 = (tab, { extraInfo }) => {
   });
 };
 
+const applyKind6 = (tab, { extraInfo }) => {
+  chrome.tabs.executeScript(tab.id, {
+    code: `
+      const bScriptNode = document.createElement("script");
+      bScriptNode.type = "text/javascript";
+      bScriptNode.src = "${extraInfo}";
+      document.querySelector("head").appendChild(bScriptNode);
+    `,
+  });
+};
+
 const applyFunctions = {
   applyKind1,
   applyKind2,
   applyKind3,
   applyKind4,
   applyKind5,
+  applyKind6,
 };
