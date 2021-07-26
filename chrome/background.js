@@ -55,9 +55,26 @@ const applyKind4 = (tab, { selector }) => {
   });
 };
 
+const applyKind5 = (tab, { extraInfo }) => {
+  const script = `(function (){ ${extraInfo} })();`;
+  const node = document.createElement("script");
+  const data = document.createTextNode(script);
+  node.appendChild(data);
+
+  chrome.tabs.executeScript(tab.id, {
+    code: `
+      const bRemoverNode = document.createElement("script");
+      const bRemoverData = document.createTextNode("${script}");
+      bRemoverNode.appendChild(bRemoverData);
+      document.querySelector("head").appendChild(bRemoverNode);
+    `,
+  });
+};
+
 const applyFunctions = {
   applyKind1,
   applyKind2,
   applyKind3,
   applyKind4,
+  applyKind5,
 };
