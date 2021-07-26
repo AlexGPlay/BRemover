@@ -19,6 +19,7 @@ chrome.webNavigation.onCompleted.addListener(async () => {
   for (const rule of rules) {
     if (rule.kind === "1") applyKind1(tab, rule);
     else if (rule.kind === "2") applyKind2(tab, rule);
+    else if (rule.kind === "3") applyKind3(tab, rule);
   }
 });
 
@@ -41,5 +42,11 @@ const applyKind2 = (tab, { selector, extraInfo }) => {
 
   chrome.tabs.executeScript(tab.id, {
     code: `document.querySelectorAll("${selector}").forEach(node => node.classList.add(${toAddClasses}))`,
+  });
+};
+
+const applyKind3 = (tab, { selector, extraInfo }) => {
+  chrome.tabs.executeScript(tab.id, {
+    code: `document.querySelectorAll("${selector}").forEach(node => node.style.cssText = "${extraInfo}")`,
   });
 };
