@@ -161,3 +161,33 @@ document.getElementById("newRulesForm").addEventListener("submit", async (evt) =
 
   saveElements(newElements);
 });
+
+document.getElementById("settingsBtn").addEventListener("click", async () => {
+  document.getElementById("main").classList.add("hidden");
+  document.getElementById("edit").classList.add("hidden");
+  document.getElementById("settings").classList.remove("hidden");
+
+  const elements = await getElements();
+  const data = Object.keys(elements)
+    .map(
+      (element) =>
+        `<div class="settingsRule"><input id="${element}" type="checkbox"/><label class="settingsLabel" for="${element}">${element}</label></div>`
+    )
+    .join("");
+
+  document.getElementById("domainsSettingsList").innerHTML = data;
+});
+
+document.getElementById("exportBtn").addEventListener("click", async () => {
+  const domains = [...document.querySelectorAll("#settings input[type='checkbox']:checked")].map(
+    (input) => input.id
+  );
+
+  const elements = await getElements();
+  const neededRules = domains.reduce((acc, cur) => ({ ...acc, [cur]: elements[cur] }), {});
+
+  const url = `data:text/json;charset=utf-8,${encodeURIComponent(JSON.stringify(neededRules))}`;
+  const filename = "BRemover-rules.json";
+
+  chrome.downloads.download({ url, filename });
+});

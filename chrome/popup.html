@@ -9,7 +9,10 @@
     <script defer src="./popup.js"></script>
   </head>
   <body class="center-content">
-    <h1 class="center-self title">BRemover</h1>
+    <div class="flex">
+      <h1 class="center-self title">BRemover</h1>
+      <div class="settings" id="settingsBtn">⚙</div>
+    </div>
     <main id="main">
       <section id="content"></section>
       <form class="form" id="newDomainsForm" style="margin-top: 10px">
@@ -50,6 +53,13 @@
         </div>
         <button type="submit">Add</button>
       </form>
+    </section>
+    <section id="settings" class="hidden">
+      <div>
+        <button>Import</button>
+        <button id="exportBtn">Export</button>
+      </div>
+      <div id="domainsSettingsList"></div>
     </section>
   </body>
 </html>

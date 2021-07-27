@@ -11,6 +11,17 @@ button {
   cursor: pointer;
 }
 
+.flex {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.settings {
+  font-size: 22px;
+  cursor: pointer;
+}
+
 .center-content {
   display: flex;
   justify-content: center;
@@ -32,6 +43,7 @@ button {
 
 .title {
   margin-top: 0;
+  margin-bottom: 0;
 }
 
 .page {
@@ -83,4 +95,10 @@ table {
   margin-top: 10px;
   border: 1px solid black;
   width: 100%;
+}
+
+.settingsRule {
+  margin-top: 5px;
+  display: flex;
+  align-items: center;
 }

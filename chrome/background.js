@@ -45,7 +45,7 @@ const applyKind2 = (tab, { selector, extraInfo }) => {
 
 const applyKind3 = (tab, { selector, extraInfo }) => {
   chrome.tabs.executeScript(tab.id, {
-    code: `document.querySelectorAll("${selector}").forEach(node => node.style.cssText = "${extraInfo}")`,
+    code: `document.querySelectorAll("${selector}").forEach(node => node.style.cssText += "${extraInfo}")`,
   });
 };
 
