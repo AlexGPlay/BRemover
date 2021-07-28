@@ -191,3 +191,23 @@ document.getElementById("exportBtn").addEventListener("click", async () => {
 
   chrome.downloads.download({ url, filename });
 });
+
+document
+  .getElementById("importBtn")
+  .addEventListener("click", () => document.getElementById("importFile").click());
+
+document.getElementById("importFile").addEventListener("change", async (evt) => {
+  const reader = new FileReader();
+  reader.onload = async (e) => {
+    const jsonData = JSON.parse(e.target.result);
+    const currentElements = await getElements();
+    Object.keys(jsonData).forEach((key) =>
+      currentElements[key]
+        ? (currentElements[key] = [...currentElements[key], ...jsonData[key]])
+        : (currentElements[key] = jsonData[key])
+    );
+    await saveElements(currentElements);
+    document.getElementById("settingsBtn").click();
+  };
+  reader.readAsText(evt.target.files[0]);
+});

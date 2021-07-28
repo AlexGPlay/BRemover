@@ -61,7 +61,7 @@ const applyKind5 = (tab, { extraInfo }) => {
   chrome.tabs.executeScript(tab.id, {
     code: `
       const bRemoverNode = document.createElement("script");
-      const bRemoverData = document.createTextNode("${script}");
+      const bRemoverData = document.createTextNode(\`${script}\`);
       bRemoverNode.appendChild(bRemoverData);
       document.querySelector("head").appendChild(bRemoverNode);
     `,
