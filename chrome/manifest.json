@@ -2,7 +2,7 @@
   "manifest_version": 2,
 
   "name": "BRemover",
-  "description": "This extension will remove classes from certain domains.",
+  "description": "BRemover can modify how certain webs work given the rules by the user.",
   "version": "1.0",
 
   "browser_action": {
