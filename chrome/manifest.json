@@ -17,6 +17,6 @@
       "128": "icon.png"
     }
   },
-  "permissions": ["tabs", "webNavigation", "storage", "downloads"],
-  "host_permissions": ["*://*/*"]
+  "permissions": ["tabs", "webNavigation", "storage", "downloads", "scripting"],
+  "host_permissions": ["<all_urls>"]
 }
