@@ -31,7 +31,6 @@ const applyKind1 = ({ selector, extraInfo }) => {
     .split(";")
     .map((klass) => `"${klass}"`)
     .join(",");
-  console.log(toRemoveClasses)
   return {
     script: ({selector, toRemoveClasses}) => document.querySelectorAll(selector).forEach(node => node.classList.remove(toRemoveClasses)),
     params: {selector, toRemoveClasses}
@@ -93,7 +92,7 @@ const applyKind7 = ({ extraInfo }) => {
   const loadScript = ()=> {
     const bStylesheetNode = document.createElement("link");
       bStylesheetNode.rel = "stylesheet";
-      bStylesheetNode.href = "extraInfo";
+      bStylesheetNode.href = extraInfo;
       document.querySelector("head").appendChild(bStylesheetNode);
   }
   return {
